@@ -1,0 +1,18 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "frame": {
+    "version": "1",
+    "name": "BasePet",
+    "iconUrl": "https://basepet.app/icon.png",
+    "homeUrl": "https://basepet.app",
+    "imageUrl": "https://basepet.app/og.png",
+    "buttonTitle": "Open BasePet",
+    "splashImageUrl": "https://basepet.app/splash.png",
+    "splashBackgroundColor": "#0a0e1a",
+    "webhookUrl": "https://basepet.app/api/webhook"
+  }
+}

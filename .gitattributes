@@ -1,0 +1,9 @@
+# Tutarlı satır sonları (repo'da LF)
+* text=auto eol=lf
+
+# İkili/animasyon varlıkları
+*.gif binary
+*.png binary
+*.webp binary
+*.glb binary
+*.ico binary
