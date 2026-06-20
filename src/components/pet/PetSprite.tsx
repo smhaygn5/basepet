@@ -73,7 +73,7 @@ export function PetSprite({ animation = "idle" }: { animation?: PetAnimationStat
         >
           <div className="text-[96px] leading-none">🐱</div>
           <p className="mt-2 text-xs text-[var(--text-muted)]">
-            Kedi görselleri <code>public/pets/</code> içine eklenecek
+            Add cat images to <code>public/pets/</code>
           </p>
         </motion.div>
       </div>

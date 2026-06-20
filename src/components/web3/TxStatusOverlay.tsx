@@ -28,11 +28,11 @@ export function TxStatusOverlay({
             {status === "pending" ? (
               <>
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--accent-blue)] border-t-transparent" />
-                <span>İşleniyor…</span>
+                <span>Processing…</span>
               </>
             ) : (
               <span className="text-[var(--accent-red)]">
-                ⚠ {message ?? "İşlem başarısız"}
+                ⚠ {message ?? "Transaction failed"}
               </span>
             )}
           </div>

@@ -162,7 +162,7 @@ body {
 .need-bar__fill {
   height: 100%;
   border-radius: 4px;
-  transition: width 1s ease-in-out;
+  transition: width 0.4s ease-out;
 }
 
 .need-bar__fill--hunger { background: linear-gradient(90deg, #f59e0b, #eab308); }

@@ -32,16 +32,16 @@ export function useSubAccount() {
       }
     ).ethereum;
     if (!eth?.request) {
-      setError("Uyumlu cüzdan yok");
+      setError("No compatible wallet");
       return false;
     }
     try {
       // TODO (canlı): Coinbase Smart Wallet sub-account + spend permission akışı.
       // Şimdilik desteklenmiyor → kullanıcı normal imza akışını kullanır.
-      setError("Sub-Accounts canlı ortamda etkinleşir (Coinbase Smart Wallet)");
+      setError("Sub-Accounts are enabled in production (Coinbase Smart Wallet)");
       return false;
     } catch {
-      setError("Yetkilendirme başarısız");
+      setError("Authorization failed");
       return false;
     }
   }, []);

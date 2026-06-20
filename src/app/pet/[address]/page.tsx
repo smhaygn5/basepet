@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { useChainId, useReadContract } from "wagmi";
 import { PET_CORE_ADDRESS, petCoreAbi } from "@/lib/contracts";
-import { ShareButton } from "@/components/web3/ShareButton";
+import { ShareButtons } from "@/components/web3/ShareButton";
 import { PetSprite } from "@/components/pet/PetSprite";
 import type { PetData } from "@/types";
 
@@ -11,7 +11,7 @@ const ADDR_RE = /^0x[a-fA-F0-9]{40}$/;
 const ZERO = "0x0000000000000000000000000000000000000000";
 
 /**
- * Arkadaş ziyareti (plan §5.4) — başka bir adresin kedisini salt okunur görüntüler.
+ * Friend visit (plan §5.4) — read-only view of another address's pet.
  */
 export default function VisitPetPage() {
   const params = useParams<{ address: string }>();
@@ -34,7 +34,7 @@ export default function VisitPetPage() {
   if (!valid) {
     return (
       <main className="mx-auto flex w-full max-w-3xl flex-1 items-center justify-center px-6 py-24">
-        <p className="text-sm text-[var(--accent-red)]">Geçersiz adres.</p>
+        <p className="text-sm text-[var(--accent-red)]">Invalid address.</p>
       </main>
     );
   }
@@ -43,7 +43,7 @@ export default function VisitPetPage() {
     <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-4 px-6 py-10">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-          {exists ? `${pet!.name} ziyareti` : "Kedi ziyareti"}
+          {exists ? `Visiting ${pet!.name}` : "Visit a pet"}
         </h1>
         <span className="font-mono text-xs text-[var(--text-secondary)]">
           {addr.slice(0, 6)}…{addr.slice(-4)}
@@ -52,11 +52,11 @@ export default function VisitPetPage() {
 
       {!deployed ? (
         <p className="text-sm text-[var(--accent-amber)]">
-          Bu ağda PetCore deploy edilmemiş (yerel test için anvil / 31337).
+          PetCore is not deployed on this network. Switch your wallet to Base.
         </p>
       ) : !exists ? (
         <p className="text-sm text-[var(--text-secondary)]">
-          Bu adresin henüz bir kedisi yok.
+          This address doesn&apos;t have a pet yet.
         </p>
       ) : (
         <>
@@ -70,13 +70,13 @@ export default function VisitPetPage() {
                 Lv.{pet!.level.toString()} · {pet!.totalXP.toString()} XP
               </p>
             </div>
-            <ShareButton
-              text={`${pet!.name} adlı on-chain kedime göz at! 🐾 BasePet`}
+            <ShareButtons
+              text={`Check out ${pet!.name}, an on-chain pet on Base! 🐾 BasePet`}
               url={typeof window !== "undefined" ? window.location.href : undefined}
             />
           </div>
           <p className="text-xs text-[var(--text-muted)]">
-            Salt okunur görünüm — bu kediyle etkileşemezsin.
+            Read-only view — you can&apos;t interact with this pet.
           </p>
         </>
       )}

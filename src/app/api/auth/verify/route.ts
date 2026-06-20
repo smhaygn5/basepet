@@ -14,12 +14,12 @@ export async function POST(req: Request) {
     const ip = getClientIp(req);
     const rl = await rateLimit(`verify:${ip}`, 10, 60);
     if (!rl.success) {
-      return NextResponse.json({ error: "Çok fazla deneme" }, { status: 429 });
+      return NextResponse.json({ error: "Too many attempts" }, { status: 429 });
     }
 
     const { message, signature } = await req.json();
     if (!message || !signature) {
-      return NextResponse.json({ error: "Eksik parametre" }, { status: 400 });
+      return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
     }
 
     const session = await getSession();
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     });
 
     if (!result.success) {
-      return NextResponse.json({ error: "Doğrulama başarısız" }, { status: 401 });
+      return NextResponse.json({ error: "Verification failed" }, { status: 401 });
     }
 
     session.siwe = true;
@@ -42,6 +42,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true, address: result.data.address });
   } catch {
-    return NextResponse.json({ error: "Geçersiz istek" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 }

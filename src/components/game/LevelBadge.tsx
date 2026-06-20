@@ -6,7 +6,8 @@ import { xpForLevel } from "@/lib/constants";
  * Seviye + XP ilerleme rozeti. Bir sonraki seviyeye kalan XP'yi gösterir.
  */
 export function LevelBadge({ level, totalXP }: { level: number; totalXP: number }) {
-  const currentLevelXP = xpForLevel(level);
+  // Seviye 1 sözleşmede 0 XP'den başlar (level = floor(sqrt(XP/100)), min 1).
+  const currentLevelXP = level <= 1 ? 0 : xpForLevel(level);
   const nextLevelXP = xpForLevel(level + 1);
   const span = Math.max(1, nextLevelXP - currentLevelXP);
   const progress = Math.min(100, Math.max(0, ((totalXP - currentLevelXP) / span) * 100));

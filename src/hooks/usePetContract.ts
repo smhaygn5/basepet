@@ -17,7 +17,8 @@ export function usePetContract() {
     abi: petCoreAbi,
     functionName: "hasPet",
     args: address ? [address] : undefined,
-    query: { enabled: Boolean(address && contractAddress) },
+    // RPC gecikmesine karşı periyodik yenileme → XP/bar güncel kalır.
+    query: { enabled: Boolean(address && contractAddress), refetchInterval: 8000 },
   });
 
   const { data: pet, refetch: refetchPet } = useReadContract({
@@ -25,7 +26,7 @@ export function usePetContract() {
     abi: petCoreAbi,
     functionName: "getPet",
     args: address ? [address] : undefined,
-    query: { enabled: Boolean(address && contractAddress) },
+    query: { enabled: Boolean(address && contractAddress), refetchInterval: 8000 },
   });
 
   const { writeContract, writeContractAsync, isPending, error } = useWriteContract();

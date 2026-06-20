@@ -20,7 +20,7 @@ export function MobileNav() {
     <div className="md:hidden">
       <button
         type="button"
-        aria-label="Menüyü aç"
+        aria-label="Open menu"
         onClick={() => setOpen(true)}
         className="flex h-11 w-11 items-center justify-center text-xl"
       >
@@ -46,7 +46,7 @@ export function MobileNav() {
             >
               <button
                 type="button"
-                aria-label="Menüyü kapat"
+                aria-label="Close menu"
                 onClick={() => setOpen(false)}
                 className="mb-4 self-end text-xl"
               >

@@ -49,11 +49,11 @@ export interface AccessoryMeta {
 }
 
 export const ACCESSORIES: AccessoryMeta[] = [
-  { id: ACCESSORY_IDS.CAT_FOOD, name: "Kedi Maması", icon: "🍖", rarity: "common" },
-  { id: ACCESSORY_IDS.COLLAR, name: "Özel Tasma", icon: "🎀", rarity: "rare" },
-  { id: ACCESSORY_IDS.PARTY_HAT, name: "Parti Şapkası", icon: "🎉", rarity: "rare" },
-  { id: ACCESSORY_IDS.PREMIUM_FOOD, name: "Premium Mama", icon: "⭐", rarity: "common" },
-  { id: ACCESSORY_IDS.WALLPAPER, name: "Duvar Kağıdı", icon: "🖼️", rarity: "common" },
-  { id: ACCESSORY_IDS.SEASON_WINTER_HAT, name: "Kış Şapkası", icon: "🧢", rarity: "seasonal" },
-  { id: ACCESSORY_IDS.SEASON_SPRING_FLOWER, name: "Bahar Çiçeği", icon: "🌸", rarity: "seasonal" },
+  { id: ACCESSORY_IDS.CAT_FOOD, name: "Cat Food", icon: "🍖", rarity: "common" },
+  { id: ACCESSORY_IDS.COLLAR, name: "Special Collar", icon: "🎀", rarity: "rare" },
+  { id: ACCESSORY_IDS.PARTY_HAT, name: "Party Hat", icon: "🎉", rarity: "rare" },
+  { id: ACCESSORY_IDS.PREMIUM_FOOD, name: "Premium Food", icon: "⭐", rarity: "common" },
+  { id: ACCESSORY_IDS.WALLPAPER, name: "Wallpaper", icon: "🖼️", rarity: "common" },
+  { id: ACCESSORY_IDS.SEASON_WINTER_HAT, name: "Winter Hat", icon: "🧢", rarity: "seasonal" },
+  { id: ACCESSORY_IDS.SEASON_SPRING_FLOWER, name: "Spring Flower", icon: "🌸", rarity: "seasonal" },
 ];

@@ -38,28 +38,28 @@ export default function InventoryPage() {
       <div className="flex items-center gap-3">
         <span className="text-3xl">📦</span>
         <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-          Envanter
+          Inventory
         </h1>
       </div>
 
       {!isConnected ? (
         <div className="glass-card flex flex-col items-center gap-3 p-8">
           <p className="text-sm text-[var(--text-secondary)]">
-            Aksesuarlarını görmek için cüzdanını bağla
+            Connect your wallet to see your accessories
           </p>
           <ConnectButton />
         </div>
       ) : !deployed ? (
         <div className="glass-card flex flex-col items-center gap-3 p-8">
           <p className="text-sm text-[var(--accent-amber)]">
-            Yanlış ağdasın. Envanterini görmek için cüzdanını <b>Base</b> ağına geçir.
+            Wrong network. Switch your wallet to <b>Base</b> to see your inventory.
           </p>
           <button
             type="button"
             className="cta-btn"
             onClick={() => switchChain({ chainId: base.id })}
           >
-            Base ağına geç
+            Switch to Base
           </button>
         </div>
       ) : (
@@ -90,7 +90,7 @@ export default function InventoryPage() {
       )}
 
       <p className="text-xs text-[var(--text-muted)]">
-        Aksesuarlar streak/seviye ödülü olarak mint edilir (ERC-1155). Mağaza/market Faz5+ ile gelir.
+        Accessories are minted as streak/level rewards (ERC-1155). A shop/market is coming later.
       </p>
     </main>
   );

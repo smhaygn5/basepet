@@ -21,7 +21,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const { hasPet, pet } = usePetContract();
   const petData = pet as PetData | undefined;
-  const name = hasPet && petData?.name ? petData.name : "Kedin yok";
+  const name = hasPet && petData?.name ? petData.name : "No pet";
   const level = hasPet && petData ? `Lv.${petData.level.toString()}` : "—";
 
   return (

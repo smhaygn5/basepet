@@ -13,7 +13,7 @@ import { DailyQuests } from "@/components/game/DailyQuests";
 import { StreakWidget } from "@/components/game/StreakWidget";
 import { LevelBadge } from "@/components/game/LevelBadge";
 import { ReferralCard } from "@/components/game/ReferralCard";
-import { ShareButton } from "@/components/web3/ShareButton";
+import { ShareButtons } from "@/components/web3/ShareButton";
 import { PetSprite } from "@/components/pet/PetSprite";
 import { usePetContract } from "@/hooks/usePetContract";
 import { useNeedBars } from "@/hooks/useNeedBars";
@@ -119,11 +119,11 @@ export default function DashboardPage() {
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center">
         <span className="text-5xl">🐾</span>
         <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-          Oyuna başlamak için cüzdanını bağla
+          Connect your wallet to play
         </h1>
         <p className="text-sm text-[var(--text-secondary)]">
-          BasePet on-chain bir oyundur; kedini oluşturmak ve bakımını yapmak için
-          Base ağında bir cüzdan gerekir.
+          BasePet is an on-chain game. You need a wallet on the Base network to
+          create and take care of your pet.
         </p>
         <ConnectButton />
       </div>
@@ -150,8 +150,8 @@ export default function DashboardPage() {
             </div>
             <div className="flex flex-col gap-2 sm:w-64">
               <StreakWidget current={streak.current} longest={streak.longest} />
-              <ShareButton
-                text={`${petData.name} (Lv.${petData.level}) adlı on-chain kedimle ilgileniyorum! 🐾 BasePet`}
+              <ShareButtons
+                text={`I'm taking care of ${petData.name} (Lv.${petData.level}), my on-chain pet on Base! 🐾 BasePet`}
                 url={address ? `${typeof window !== "undefined" ? window.location.origin : ""}/pet/${address}` : undefined}
               />
             </div>
@@ -185,33 +185,33 @@ export default function DashboardPage() {
             {!isConnected ? (
               <div className="flex flex-col items-center gap-3">
                 <p className="text-sm text-[var(--text-secondary)]">
-                  Başlamak için cüzdanını bağla
+                  Connect your wallet to start
                 </p>
                 <ConnectButton />
               </div>
             ) : !deployed ? (
               <div className="flex flex-col items-center gap-3">
                 <p className="text-center text-sm text-[var(--accent-amber)]">
-                  Yanlış ağdasın. Oyunu oynamak için cüzdanını <b>Base</b> ağına geçir.
+                  Wrong network. Switch your wallet to <b>Base</b> to play.
                 </p>
                 <button
                   type="button"
                   className="cta-btn"
                   onClick={() => switchChain({ chainId: base.id })}
                 >
-                  Base ağına geç
+                  Switch to Base
                 </button>
               </div>
             ) : (
               <div className="flex flex-col items-center gap-3">
                 <p className="text-sm text-[var(--text-secondary)]">
-                  Henüz bir kedin yok. Bir tane oluştur!
+                  You don&apos;t have a pet yet. Create one!
                 </p>
                 <div className="flex gap-2">
                   <input
                     value={petName}
                     onChange={(e) => setPetName(e.target.value)}
-                    placeholder="Kedi adı"
+                    placeholder="Pet name"
                     className="rounded-[var(--radius-md)] border border-[var(--glass-border)] bg-[var(--bg-tertiary)] px-3 py-2 text-sm outline-none focus:border-[var(--accent-blue)]"
                   />
                   <button
@@ -220,7 +220,7 @@ export default function DashboardPage() {
                     onClick={handleCreate}
                     disabled={txStatus === "pending" || !petName.trim()}
                   >
-                    Kedi Oluştur
+                    Create Pet
                   </button>
                 </div>
               </div>

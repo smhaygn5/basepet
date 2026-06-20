@@ -20,7 +20,7 @@ const DAILY_LIMIT = 20;
 export async function POST(req: Request) {
   // 0. Acil kill-switch: PAYMASTER_ENABLED=false → sponsorluk tamamen kapalı
   if (process.env.PAYMASTER_ENABLED === "false") {
-    return NextResponse.json({ error: "Paymaster geçici olarak kapalı" }, { status: 503 });
+    return NextResponse.json({ error: "Paymaster temporarily disabled" }, { status: 503 });
   }
 
   // 1. Oturum
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "Geçersiz gövde" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
   if (!body.method || !ALLOWED_METHODS.includes(body.method)) {
     return NextResponse.json({ error: "Method not sponsored" }, { status: 403 });
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     : undefined;
   if (!process.env.PAYMASTER_API_KEY || !paymasterUrl) {
     return NextResponse.json(
-      { error: "Paymaster yapılandırılmamış (CDP key gerekli)" },
+      { error: "Paymaster not configured (CDP key required)" },
       { status: 503 },
     );
   }
@@ -78,6 +78,6 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(await res.json());
   } catch {
-    return NextResponse.json({ error: "Paymaster hatası" }, { status: 502 });
+    return NextResponse.json({ error: "Paymaster error" }, { status: 502 });
   }
 }

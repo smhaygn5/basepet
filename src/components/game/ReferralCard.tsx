@@ -13,9 +13,9 @@ export function ReferralCard({ address }: { address?: string }) {
 
   return (
     <div className="glass-card flex flex-col gap-2 p-4">
-      <span className="text-sm font-semibold">Arkadaşını davet et 🎁</span>
+      <span className="text-sm font-semibold">Invite a friend 🎁</span>
       <p className="text-xs text-[var(--text-secondary)]">
-        Her davet ettiğin arkadaş için bonus XP kazan.
+        Earn bonus XP for every friend you invite.
       </p>
       <button
         type="button"
@@ -23,7 +23,7 @@ export function ReferralCard({ address }: { address?: string }) {
         className="cta-btn text-sm"
         disabled={!inviteLink}
       >
-        {copied ? "Kopyalandı ✓" : "Davet linkini kopyala"}
+        {copied ? "Copied ✓" : "Copy invite link"}
       </button>
     </div>
   );

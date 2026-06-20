@@ -42,18 +42,18 @@ export default function LeaderboardPage() {
       <div className="flex items-center gap-3">
         <span className="text-3xl">🏆</span>
         <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-          Liderlik Tablosu
+          Leaderboard
         </h1>
       </div>
 
       {loading ? (
-        <p className="text-sm text-[var(--text-secondary)]">Yükleniyor…</p>
+        <p className="text-sm text-[var(--text-secondary)]">Loading…</p>
       ) : rows.length === 0 ? (
         <div className="glass-card flex flex-col gap-2 p-6 text-sm text-[var(--text-secondary)]">
-          <p>Henüz sıralama verisi yok.</p>
+          <p>No ranking data yet.</p>
           <p className="text-xs text-[var(--text-muted)]">
-            Canlı sıralama, Supabase + Ponder indexer bağlandığında dolar (haftalık XP).
-            Basenames (user.base.eth) ile gösterilir.
+            Live rankings populate once the Supabase + Ponder indexer is connected
+            (weekly XP). Players are shown with Basenames (user.base.eth).
           </p>
         </div>
       ) : (

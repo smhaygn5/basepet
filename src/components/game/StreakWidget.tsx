@@ -11,12 +11,12 @@ export function StreakWidget({ current, longest }: { current: number; longest: n
         <span className="text-xl">🔥</span>
         <div>
           <p className="font-semibold">{current} Day Streak</p>
-          <p className="text-xs text-[var(--text-secondary)]">En uzun: {longest} gün</p>
+          <p className="text-xs text-[var(--text-secondary)]">Longest: {longest} days</p>
         </div>
       </div>
       {nextReward && (
         <span className="rounded-full bg-[rgba(245,158,11,0.15)] px-2 py-1 text-xs text-[var(--accent-amber)]">
-          {nextReward}. günde ödül 🎁
+          Reward on day {nextReward} 🎁
         </span>
       )}
     </div>

@@ -32,7 +32,7 @@ export function useAuth() {
       const message = new SiweMessage({
         domain: window.location.host,
         address,
-        statement: "BasePet'e giriş yap.",
+        statement: "Sign in to BasePet.",
         uri: window.location.origin,
         version: "1",
         chainId,
@@ -45,11 +45,11 @@ export function useAuth() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message, signature }),
       });
-      if (!res.ok) throw new Error("Doğrulama başarısız");
+      if (!res.ok) throw new Error("Verification failed");
       const data = await res.json();
       setAuthedAddress(data.address);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Giriş başarısız");
+      setError(e instanceof Error ? e.message : "Sign-in failed");
     } finally {
       setLoading(false);
     }

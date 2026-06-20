@@ -32,9 +32,9 @@ export default function GlobalError({
         }}
       >
         <div style={{ textAlign: "center", maxWidth: 420, padding: 24 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700 }}>Bir şeyler ters gitti</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700 }}>Something went wrong</h1>
           <p style={{ color: "#9ca3af", marginTop: 8 }}>
-            Beklenmeyen bir hata oluştu. Lütfen tekrar dene.
+            An unexpected error occurred. Please try again.
           </p>
           <button
             type="button"
@@ -49,7 +49,7 @@ export default function GlobalError({
               cursor: "pointer",
             }}
           >
-            Tekrar dene
+            Try again
           </button>
         </div>
       </body>

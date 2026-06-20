@@ -26,9 +26,9 @@ function todayStr() {
 
 function freshQuests(): Quest[] {
   return [
-    { key: "feed_twice", label: "Kediyi 2 kez besle", target: 2, progress: 0, completed: false },
-    { key: "bath_toilet", label: "1 banyo + 1 tuvalet", target: 2, progress: 0, completed: false },
-    { key: "variety", label: "3 farklı aksiyon kullan", target: 3, progress: 0, completed: false },
+    { key: "feed_twice", label: "Feed your cat twice", target: 2, progress: 0, completed: false },
+    { key: "bath_toilet", label: "1 bath + 1 toilet", target: 2, progress: 0, completed: false },
+    { key: "variety", label: "Use 3 different actions", target: 3, progress: 0, completed: false },
   ];
 }
 
