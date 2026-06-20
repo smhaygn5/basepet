@@ -57,9 +57,6 @@ export default function Home() {
 
         <motion.div variants={item} className="flex flex-wrap items-center gap-4">
           <ConnectButton label="Connect Wallet" />
-          <button className="cta-btn" type="button">
-            Demo
-          </button>
         </motion.div>
 
         <motion.div
