@@ -15,6 +15,7 @@ import { LevelBadge } from "@/components/game/LevelBadge";
 import { ReferralCard } from "@/components/game/ReferralCard";
 import { ShareButtons } from "@/components/web3/ShareButton";
 import { PetSprite } from "@/components/pet/PetSprite";
+import { GameArcade } from "@/components/games/GameArcade";
 import { usePetContract } from "@/hooks/usePetContract";
 import { useNeedBars } from "@/hooks/useNeedBars";
 import { usePetAnimation } from "@/hooks/usePetAnimation";
@@ -57,14 +58,15 @@ export default function DashboardPage() {
   const [txStatus, setTxStatus] = useState<TxStatus>("idle");
   const [xp, setXp] = useState<number | null>(null);
   const [petName, setPetName] = useState("");
+  const [arcadeOpen, setArcadeOpen] = useState(false);
 
   const deployed = Boolean(contractAddress && contractAddress !== ZERO);
 
-  /** TX gönder + receipt'i bekle; tüm durum güncellemeleri handler içinde (effect yok). */
+  /** TX gönder + receipt'i bekle; başarılıysa true döner. Durum güncellemeleri handler içinde. */
   async function runTx(
     hashPromise: Promise<`0x${string}`>,
     opts: { confirmAnim?: PetAnimationState; awardXp?: boolean; onConfirmed?: () => void } = {},
-  ) {
+  ): Promise<boolean> {
     setTxStatus("pending");
     try {
       const hash = await hashPromise;
@@ -78,15 +80,22 @@ export default function DashboardPage() {
       refetch();
       setTimeout(() => setXp(null), 1400);
       setTimeout(() => setTxStatus("idle"), 900);
+      return true;
     } catch {
       setTxStatus("error");
       trigger("sad");
       setTimeout(() => setTxStatus("idle"), 2500);
+      return false;
     }
   }
 
   function handleAction(action: ActionType) {
     if (!deployed || !publicClient) return;
+    // Play artık doğrudan tx atmaz → arcade'i açar (oyunlar içinde tx atılır).
+    if (action === ActionType.PLAY) {
+      setArcadeOpen(true);
+      return;
+    }
     trigger(ACTION_ANIM[action]); // optimistic animasyon
     void runTx(
       writeContractAsync({
@@ -100,6 +109,28 @@ export default function DashboardPage() {
         awardXp: true,
         onConfirmed: () => {
           recordQuest(action);
+          streak.recordAction();
+        },
+      },
+    );
+  }
+
+  /** Arcade oyunları için: PLAY tx'i gönder, başarı durumunu döndür (oyun sonucu için). */
+  function playGameTx(): Promise<boolean> {
+    if (!deployed || !publicClient) return Promise.resolve(false);
+    trigger("play");
+    return runTx(
+      writeContractAsync({
+        address: contractAddress,
+        abi: petCoreAbi,
+        functionName: "performAction",
+        args: [ActionType.PLAY],
+      }),
+      {
+        confirmAnim: "happy",
+        awardXp: true,
+        onConfirmed: () => {
+          recordQuest(ActionType.PLAY);
           streak.recordAction();
         },
       },
@@ -242,6 +273,14 @@ export default function DashboardPage() {
           <PetActions onAction={handleAction} disabled={txStatus === "pending"} />
         </div>
       )}
+
+      {/* Oyun salonu (Play butonu açar) */}
+      <GameArcade
+        open={arcadeOpen}
+        onClose={() => setArcadeOpen(false)}
+        onPlayTx={playGameTx}
+        busy={txStatus === "pending"}
+      />
     </div>
   );
 }
