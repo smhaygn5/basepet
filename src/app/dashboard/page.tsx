@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useAccount, usePublicClient, useWriteContract } from "wagmi";
+import { useAccount, usePublicClient, useSwitchChain, useWriteContract } from "wagmi";
+import { base } from "wagmi/chains";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { NeedBar } from "@/components/ui/NeedBar";
@@ -51,6 +52,7 @@ export default function DashboardPage() {
 
   const { writeContractAsync } = useWriteContract();
   const publicClient = usePublicClient();
+  const { switchChain } = useSwitchChain();
 
   const [txStatus, setTxStatus] = useState<TxStatus>("idle");
   const [xp, setXp] = useState<number | null>(null);
@@ -171,9 +173,18 @@ export default function DashboardPage() {
                 <ConnectButton />
               </div>
             ) : !deployed ? (
-              <p className="text-center text-sm text-[var(--accent-amber)]">
-                Bu ağda PetCore deploy edilmemiş. Yerel test için anvil (chainId 31337) ağına geç.
-              </p>
+              <div className="flex flex-col items-center gap-3">
+                <p className="text-center text-sm text-[var(--accent-amber)]">
+                  Yanlış ağdasın. Oyunu oynamak için cüzdanını <b>Base</b> ağına geçir.
+                </p>
+                <button
+                  type="button"
+                  className="cta-btn"
+                  onClick={() => switchChain({ chainId: base.id })}
+                >
+                  Base ağına geç
+                </button>
+              </div>
             ) : (
               <div className="flex flex-col items-center gap-3">
                 <p className="text-sm text-[var(--text-secondary)]">

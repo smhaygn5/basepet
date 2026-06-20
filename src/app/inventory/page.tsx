@@ -1,6 +1,7 @@
 "use client";
 
-import { useAccount, useChainId, useReadContracts } from "wagmi";
+import { useAccount, useChainId, useReadContracts, useSwitchChain } from "wagmi";
+import { base } from "wagmi/chains";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import {
   ACCESSORIES,
@@ -18,6 +19,7 @@ const RARITY_COLOR: Record<string, string> = {
 export default function InventoryPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
   const shop = ACCESSORY_SHOP_ADDRESS[chainId];
   const deployed = Boolean(shop && shop !== ZERO);
 
@@ -48,9 +50,18 @@ export default function InventoryPage() {
           <ConnectButton />
         </div>
       ) : !deployed ? (
-        <p className="text-sm text-[var(--accent-amber)]">
-          Bu ağda AccessoryShop deploy edilmemiş (yerel test için anvil / chainId 31337).
-        </p>
+        <div className="glass-card flex flex-col items-center gap-3 p-8">
+          <p className="text-sm text-[var(--accent-amber)]">
+            Yanlış ağdasın. Envanterini görmek için cüzdanını <b>Base</b> ağına geçir.
+          </p>
+          <button
+            type="button"
+            className="cta-btn"
+            onClick={() => switchChain({ chainId: base.id })}
+          >
+            Base ağına geç
+          </button>
+        </div>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {ACCESSORIES.map((a, i) => {
