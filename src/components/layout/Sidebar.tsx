@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { usePetContract } from "@/hooks/usePetContract";
+import type { PetData } from "@/types";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Home", icon: "🏠" },
@@ -17,6 +19,10 @@ const NAV_ITEMS = [
  */
 export function Sidebar() {
   const pathname = usePathname();
+  const { hasPet, pet } = usePetContract();
+  const petData = pet as PetData | undefined;
+  const name = hasPet && petData?.name ? petData.name : "Kedin yok";
+  const level = hasPet && petData ? `Lv.${petData.level.toString()}` : "—";
 
   return (
     <aside className="glass-card flex w-64 flex-col gap-6 p-5">
@@ -26,8 +32,8 @@ export function Sidebar() {
           🐱
         </div>
         <div>
-          <p className="font-semibold">Mochi</p>
-          <p className="text-xs text-[var(--text-secondary)]">Lv.1</p>
+          <p className="font-semibold">{name}</p>
+          <p className="text-xs text-[var(--text-secondary)]">{level}</p>
         </div>
       </div>
 

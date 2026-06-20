@@ -67,10 +67,17 @@
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
 }
 
+/* Katı opak arka plan garantisi (mobil webview'lerde şeffaflık olmasın) */
+html {
+  background: var(--bg-primary);
+}
+
 body {
+  min-height: 100%;
   background: var(--bg-primary);
   background-image: var(--gradient-hero);
-  background-attachment: fixed;
+  /* NOT: background-attachment: fixed mobil webview'lerde bozulup şeffaflık
+     yaratıyordu — kaldırıldı. */
   color: var(--text-primary);
   font-family: var(--font-sans);
 }

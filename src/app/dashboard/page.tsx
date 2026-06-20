@@ -113,6 +113,23 @@ export default function DashboardPage() {
 
   const showActions = isConnected && deployed && hasPet;
 
+  // Cüzdan bağlı değilse dashboard içeriği gösterilmez — sadece bağlanma kapısı.
+  if (!isConnected) {
+    return (
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center gap-5 px-6 py-24 text-center">
+        <span className="text-5xl">🐾</span>
+        <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
+          Oyuna başlamak için cüzdanını bağla
+        </h1>
+        <p className="text-sm text-[var(--text-secondary)]">
+          BasePet on-chain bir oyundur; kedini oluşturmak ve bakımını yapmak için
+          Base ağında bir cüzdan gerekir.
+        </p>
+        <ConnectButton />
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-1 gap-6 px-4 py-6 pb-28 lg:pb-6">
       <div className="hidden lg:block">

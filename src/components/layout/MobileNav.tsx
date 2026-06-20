@@ -42,7 +42,7 @@ export function MobileNav() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.25 }}
-              className="glass-card fixed right-0 top-0 z-[70] flex h-full w-64 flex-col gap-2 !rounded-none p-6"
+              className="fixed right-0 top-0 z-[70] flex h-full w-64 flex-col gap-2 border-l border-[var(--glass-border)] bg-[var(--bg-secondary)] p-6 shadow-2xl"
             >
               <button
                 type="button"
