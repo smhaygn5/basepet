@@ -33,13 +33,23 @@ function freshQuests(): Quest[] {
 }
 
 function load(): QuestState {
-  const empty: QuestState = { day: todayStr(), quests: freshQuests(), usedActions: [] };
+  const fresh = freshQuests();
+  const empty: QuestState = { day: todayStr(), quests: fresh, usedActions: [] };
   if (typeof window === "undefined") return empty;
   try {
     const raw = localStorage.getItem(KEY);
     if (raw) {
-      const parsed = JSON.parse(raw) as QuestState;
-      if (parsed.day === todayStr()) return parsed;
+      const parsed = JSON.parse(raw) as Partial<QuestState>;
+      if (parsed.day === todayStr() && Array.isArray(parsed.quests)) {
+        // Etiketler HER ZAMAN koddan gelir (dil/metin güncellemeleri yansısın);
+        // localStorage'dan yalnızca ilerleme key ile eşlenir.
+        const savedByKey = new Map(parsed.quests.map((q) => [q.key, q]));
+        const quests = fresh.map((q) => {
+          const progress = Math.min(savedByKey.get(q.key)?.progress ?? 0, q.target);
+          return { ...q, progress, completed: progress >= q.target };
+        });
+        return { day: todayStr(), quests, usedActions: parsed.usedActions ?? [] };
+      }
     }
   } catch {}
   return empty;
