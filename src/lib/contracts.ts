@@ -11,13 +11,13 @@ export { petCoreAbi, accessoryShopAbi };
  */
 export const PET_CORE_ADDRESS: Record<number, `0x${string}`> = {
   [foundry.id]: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-  [base.id]: "0x681A473F556c447DEf4289A1C243d5A1BF29860D",
+  [base.id]: "0x1bD23335C1DC6B5072954E56608e563cFC018673",
 };
 
 /** AccessoryShop (ERC-1155 UUPS proxy) adresleri. */
 export const ACCESSORY_SHOP_ADDRESS: Record<number, `0x${string}`> = {
   [foundry.id]: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-  [base.id]: "0x1bD23335C1DC6B5072954E56608e563cFC018673",
+  [base.id]: "0x48c3D11787de88990215d6FCf5A0baB9B265E463",
 };
 
 /** Sözleşmedeki ActionType enum'u ile birebir eşleşir. */
