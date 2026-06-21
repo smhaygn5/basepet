@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { GameShell } from "./GameShell";
+import { GameShell, type GameResult } from "./GameShell";
 
 type Side = "heads" | "tails";
 
@@ -12,14 +12,23 @@ type Side = "heads" | "tails";
 export function CoinFlip({
   onPlayTx,
   busy,
+  onResult,
 }: {
   onPlayTx: () => Promise<boolean>;
   busy: boolean;
+  onResult?: (win: boolean) => void;
 }) {
   const [choice, setChoice] = useState<Side>("heads");
   const [face, setFace] = useState<Side>("heads");
   const [flipping, setFlipping] = useState(false);
-  const [result, setResult] = useState<{ win: boolean; text: string } | null>(null);
+  const [result, setResult] = useState<GameResult | null>(null);
+
+  // Dönerken iki yüzü de göster (yoksa hep aynı yüz döner → diğer yüz yok gibi durur).
+  useEffect(() => {
+    if (!flipping) return;
+    const id = setInterval(() => setFace((f) => (f === "heads" ? "tails" : "heads")), 140);
+    return () => clearInterval(id);
+  }, [flipping]);
 
   async function handleFlip() {
     if (busy || flipping) return;
@@ -34,11 +43,17 @@ export function CoinFlip({
     setFace(outcome);
     setFlipping(false);
     const win = outcome === choice;
-    setResult({ win, text: win ? "You won! 🎉" : "You lost 🐾 Try again!" });
+    setResult({ win, text: win ? "You won! 🎉" : "You lost 🐾 Try again!", id: Date.now() });
   }
 
   return (
-    <GameShell actionLabel="Flip (1 tx)" onPlay={handleFlip} busy={busy || flipping} result={result}>
+    <GameShell
+      actionLabel="Flip (1 tx)"
+      onPlay={handleFlip}
+      busy={busy || flipping}
+      result={result}
+      onResult={onResult}
+    >
       <motion.div
         key={face + (flipping ? "f" : "")}
         animate={flipping ? { rotateY: [0, 360, 720] } : { rotateY: 0 }}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GameShell } from "./GameShell";
+import { GameShell, type GameResult } from "./GameShell";
 
 const SEGMENTS = [
   { e: "🐟", t: "Tasty Fish" },
@@ -18,13 +18,15 @@ const SEGMENTS = [
 export function LuckyWheel({
   onPlayTx,
   busy,
+  onResult,
 }: {
   onPlayTx: () => Promise<boolean>;
   busy: boolean;
+  onResult?: (win: boolean) => void;
 }) {
   const [active, setActive] = useState(0);
   const [spinning, setSpinning] = useState(false);
-  const [result, setResult] = useState<{ win: boolean; text: string } | null>(null);
+  const [result, setResult] = useState<GameResult | null>(null);
 
   useEffect(() => {
     if (!spinning) return;
@@ -48,11 +50,18 @@ export function LuckyWheel({
     setResult({
       win: seg.e === "⭐",
       text: seg.e === "⭐" ? `${seg.e} ${seg.t}! Lucky you! 🎉` : `${seg.e} ${seg.t}!`,
+      id: Date.now(),
     });
   }
 
   return (
-    <GameShell actionLabel="Spin (1 tx)" onPlay={handleSpin} busy={busy || spinning} result={result}>
+    <GameShell
+      actionLabel="Spin (1 tx)"
+      onPlay={handleSpin}
+      busy={busy || spinning}
+      result={result}
+      onResult={onResult}
+    >
       <div className="grid grid-cols-3 gap-2">
         {SEGMENTS.map((s, i) => (
           <div

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GameShell } from "./GameShell";
+import { GameShell, type GameResult } from "./GameShell";
 
 const FACES = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 type Bet = "low" | "high";
@@ -12,14 +12,16 @@ type Bet = "low" | "high";
 export function DiceRoll({
   onPlayTx,
   busy,
+  onResult,
 }: {
   onPlayTx: () => Promise<boolean>;
   busy: boolean;
+  onResult?: (win: boolean) => void;
 }) {
   const [bet, setBet] = useState<Bet>("high");
   const [value, setValue] = useState(1);
   const [rolling, setRolling] = useState(false);
-  const [result, setResult] = useState<{ win: boolean; text: string } | null>(null);
+  const [result, setResult] = useState<GameResult | null>(null);
 
   useEffect(() => {
     if (!rolling) return;
@@ -40,11 +42,21 @@ export function DiceRoll({
     setValue(roll);
     setRolling(false);
     const win = bet === "low" ? roll <= 3 : roll >= 4;
-    setResult({ win, text: win ? `Rolled ${roll} — You won! 🎉` : `Rolled ${roll} — Try again 🐾` });
+    setResult({
+      win,
+      text: win ? `Rolled ${roll} — You won! 🎉` : `Rolled ${roll} — Try again 🐾`,
+      id: Date.now(),
+    });
   }
 
   return (
-    <GameShell actionLabel="Roll (1 tx)" onPlay={handleRoll} busy={busy || rolling} result={result}>
+    <GameShell
+      actionLabel="Roll (1 tx)"
+      onPlay={handleRoll}
+      busy={busy || rolling}
+      result={result}
+      onResult={onResult}
+    >
       <div className="flex h-24 w-24 items-center justify-center rounded-[var(--radius-lg)] border border-[var(--glass-border)] bg-[var(--bg-tertiary)] text-6xl">
         {FACES[value - 1]}
       </div>

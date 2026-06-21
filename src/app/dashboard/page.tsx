@@ -49,7 +49,7 @@ export default function DashboardPage() {
   const displayAnimation: PetAnimationState =
     animation === "idle" ? (lowNeed ? "sad" : "idle") : animation;
   const streak = useStreak(address);
-  const { quests, recordAction: recordQuest } = useDailyQuests();
+  const { quests, recordAction: recordQuest, recordWin } = useDailyQuests();
 
   const { writeContractAsync } = useWriteContract();
   const publicClient = usePublicClient();
@@ -280,6 +280,9 @@ export default function DashboardPage() {
         onClose={() => setArcadeOpen(false)}
         onPlayTx={playGameTx}
         busy={txStatus === "pending"}
+        onResult={(win) => {
+          if (win) recordWin();
+        }}
       />
     </div>
   );

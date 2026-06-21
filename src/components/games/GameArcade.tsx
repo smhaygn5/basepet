@@ -6,6 +6,7 @@ import { SlotMachine } from "./SlotMachine";
 import { CoinFlip } from "./CoinFlip";
 import { DiceRoll } from "./DiceRoll";
 import { LuckyWheel } from "./LuckyWheel";
+import { isMuted, setMuted } from "@/lib/sfx";
 
 type GameKey = "slot" | "flip" | "dice" | "wheel";
 
@@ -32,13 +33,22 @@ export function GameArcade({
   onClose,
   onPlayTx,
   busy,
+  onResult,
 }: {
   open: boolean;
   onClose: () => void;
   onPlayTx: () => Promise<boolean>;
   busy: boolean;
+  onResult?: (win: boolean) => void;
 }) {
   const [selected, setSelected] = useState<GameKey | null>(null);
+  const [muted, setMutedState] = useState(() => isMuted());
+
+  function toggleMute() {
+    const m = !muted;
+    setMutedState(m);
+    setMuted(m);
+  }
 
   function close() {
     setSelected(null);
@@ -66,13 +76,23 @@ export function GameArcade({
               <h2 className="text-lg font-bold" style={{ fontFamily: "var(--font-heading)" }}>
                 {selected ? GAMES.find((g) => g.key === selected)?.name : "🎮 Arcade"}
               </h2>
-              <button
-                type="button"
-                onClick={selected ? () => setSelected(null) : close}
-                className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-              >
-                {selected ? "← Back" : "✕ Close"}
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  aria-label={muted ? "Unmute" : "Mute"}
+                  className="text-base text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                >
+                  {muted ? "🔇" : "🔊"}
+                </button>
+                <button
+                  type="button"
+                  onClick={selected ? () => setSelected(null) : close}
+                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                >
+                  {selected ? "← Back" : "✕ Close"}
+                </button>
+              </div>
             </div>
 
             {!selected ? (
@@ -97,10 +117,10 @@ export function GameArcade({
               </>
             ) : (
               <div className="py-2">
-                {selected === "slot" && <SlotMachine onPlayTx={onPlayTx} busy={busy} />}
-                {selected === "flip" && <CoinFlip onPlayTx={onPlayTx} busy={busy} />}
-                {selected === "dice" && <DiceRoll onPlayTx={onPlayTx} busy={busy} />}
-                {selected === "wheel" && <LuckyWheel onPlayTx={onPlayTx} busy={busy} />}
+                {selected === "slot" && <SlotMachine onPlayTx={onPlayTx} busy={busy} onResult={onResult} />}
+                {selected === "flip" && <CoinFlip onPlayTx={onPlayTx} busy={busy} onResult={onResult} />}
+                {selected === "dice" && <DiceRoll onPlayTx={onPlayTx} busy={busy} onResult={onResult} />}
+                {selected === "wheel" && <LuckyWheel onPlayTx={onPlayTx} busy={busy} onResult={onResult} />}
               </div>
             )}
           </motion.div>

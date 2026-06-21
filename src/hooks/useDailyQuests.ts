@@ -29,6 +29,7 @@ function freshQuests(): Quest[] {
     { key: "feed_twice", label: "Feed your cat twice", target: 2, progress: 0, completed: false },
     { key: "bath_toilet", label: "1 bath + 1 toilet", target: 2, progress: 0, completed: false },
     { key: "variety", label: "Use 3 different actions", target: 3, progress: 0, completed: false },
+    { key: "win_game", label: "Win a mini-game", target: 1, progress: 0, completed: false },
   ];
 }
 
@@ -94,5 +95,24 @@ export function useDailyQuests() {
     });
   }, []);
 
-  return { quests: state.quests, recordAction };
+  const recordWin = useCallback(() => {
+    setState((prev) => {
+      const base =
+        prev.day === todayStr()
+          ? prev
+          : { day: todayStr(), quests: freshQuests(), usedActions: [] };
+      const quests = base.quests.map((q) => {
+        if (q.key !== "win_game") return q;
+        const progress = Math.min(q.progress + 1, q.target);
+        return { ...q, progress, completed: progress >= q.target };
+      });
+      const next: QuestState = { ...base, quests };
+      try {
+        localStorage.setItem(KEY, JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  }, []);
+
+  return { quests: state.quests, recordAction, recordWin };
 }

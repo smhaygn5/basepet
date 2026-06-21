@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GameShell } from "./GameShell";
+import { GameShell, type GameResult } from "./GameShell";
 
 const SYMBOLS = ["🐟", "🧶", "🐾", "🎾", "🐭", "🥛"];
 const pick = () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
@@ -13,13 +13,15 @@ const pick = () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
 export function SlotMachine({
   onPlayTx,
   busy,
+  onResult,
 }: {
   onPlayTx: () => Promise<boolean>;
   busy: boolean;
+  onResult?: (win: boolean) => void;
 }) {
   const [reels, setReels] = useState<string[]>(["🐾", "🐾", "🐾"]);
   const [spinning, setSpinning] = useState(false);
-  const [result, setResult] = useState<{ win: boolean; text: string } | null>(null);
+  const [result, setResult] = useState<GameResult | null>(null);
 
   // Dönerken makaraları hızlıca değiştir
   useEffect(() => {
@@ -45,11 +47,18 @@ export function SlotMachine({
     setResult({
       win,
       text: win ? "JACKPOT! 🎉 All three matched!" : twoMatch ? "So close! 🐾" : "Try again 🐾",
+      id: Date.now(),
     });
   }
 
   return (
-    <GameShell actionLabel="Spin (1 tx)" onPlay={handleSpin} busy={busy || spinning} result={result}>
+    <GameShell
+      actionLabel="Spin (1 tx)"
+      onPlay={handleSpin}
+      busy={busy || spinning}
+      result={result}
+      onResult={onResult}
+    >
       <div className="flex gap-3">
         {reels.map((s, i) => (
           <div
