@@ -93,7 +93,7 @@ export default function Home() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="glass-card absolute -left-4 top-8 cursor-default select-none px-4 py-2 text-sm"
+          className="glass-card absolute -left-4 top-8 hidden cursor-default select-none px-4 py-2 text-sm sm:block"
         >
           <p className="font-semibold">ACTION: FED</p>
           <p className="text-[var(--accent-amber)]">+50 XP ⭐</p>
@@ -104,7 +104,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="glass-card absolute -right-4 bottom-8 cursor-default select-none px-4 py-2 text-sm"
+          className="glass-card absolute -right-4 bottom-8 hidden cursor-default select-none px-4 py-2 text-sm sm:block"
         >
           <p className="font-semibold">CARE STREAK</p>
           <p className="text-[var(--accent-amber)]">🔥 5 Days</p>

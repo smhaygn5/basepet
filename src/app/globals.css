@@ -72,6 +72,13 @@ html {
   background: var(--bg-primary);
 }
 
+/* Yatay taşmayı engelle (floating kartlar / mobil bindirme) */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   min-height: 100%;
   background: var(--bg-primary);

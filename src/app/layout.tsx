@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Web3Provider } from "@/providers/Web3Provider";
@@ -32,6 +32,13 @@ const fcMiniApp = {
       splashBackgroundColor: "#0a0e1a",
     },
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "dark",
+  themeColor: "#0a0e1a",
 };
 
 export const metadata: Metadata = {

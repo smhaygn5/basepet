@@ -10,7 +10,7 @@ import { MobileNav } from "./MobileNav";
  */
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 glass-card !rounded-none border-x-0 border-t-0 px-6 py-3">
+    <header className="sticky top-0 z-50 border-b border-[var(--glass-border)] bg-[var(--bg-secondary)] px-6 py-3">
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
         <Link
           href="/"
