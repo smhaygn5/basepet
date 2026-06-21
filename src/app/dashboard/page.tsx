@@ -21,7 +21,7 @@ import { useNeedBars } from "@/hooks/useNeedBars";
 import { usePetAnimation } from "@/hooks/usePetAnimation";
 import { useStreak } from "@/hooks/useStreak";
 import { useDailyQuests } from "@/hooks/useDailyQuests";
-import { ActionType, petCoreAbi } from "@/lib/contracts";
+import { ActionType, BUILDER_DATA_SUFFIX, petCoreAbi } from "@/lib/contracts";
 import { BASE_XP_PER_ACTION } from "@/lib/constants";
 import type { NeedType, PetAnimationState, PetData } from "@/types";
 
@@ -103,6 +103,7 @@ export default function DashboardPage() {
         abi: petCoreAbi,
         functionName: "performAction",
         args: [action],
+        dataSuffix: BUILDER_DATA_SUFFIX,
       }),
       {
         confirmAnim: "happy",
@@ -125,6 +126,7 @@ export default function DashboardPage() {
         abi: petCoreAbi,
         functionName: "performAction",
         args: [ActionType.PLAY],
+        dataSuffix: BUILDER_DATA_SUFFIX,
       }),
       {
         confirmAnim: "happy",

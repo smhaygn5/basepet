@@ -1,8 +1,20 @@
 import { base, foundry } from "wagmi/chains";
+import { Attribution } from "ox/erc8021";
 import { petCoreAbi } from "./petCoreAbi";
 import { accessoryShopAbi } from "./accessoryShopAbi";
 
 export { petCoreAbi, accessoryShopAbi };
+
+/**
+ * Base Builder Code (ERC-8021) attribution suffix.
+ * base.dev'den alınan builder code'dan üretilir; işlemlerin calldata'sına
+ * `dataSuffix` olarak eklenince zincirdeki tx'ler bu uygulamaya atfedilir
+ * (analytics + weekly leaderboard + builder rewards). Kozmetik/güvenli — yalnızca
+ * calldata sonuna eklenen herkese açık bir etikettir.
+ */
+export const BUILDER_DATA_SUFFIX = Attribution.toDataSuffix({
+  codes: ["bc_5gd85lfu"],
+});
 
 /**
  * PetCore (UUPS proxy) sözleşme adresleri (zincir bazlı).

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount, useChainId, useReadContract, useWriteContract } from "wagmi";
-import { ActionType, PET_CORE_ADDRESS, petCoreAbi } from "@/lib/contracts";
+import { ActionType, BUILDER_DATA_SUFFIX, PET_CORE_ADDRESS, petCoreAbi } from "@/lib/contracts";
 
 /**
  * PetCore sözleşmesi için read/write hook'ları.
@@ -37,6 +37,7 @@ export function usePetContract() {
       abi: petCoreAbi,
       functionName: "createPet",
       args: [name],
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }
 
@@ -46,6 +47,7 @@ export function usePetContract() {
       abi: petCoreAbi,
       functionName: "performAction",
       args: [action],
+      dataSuffix: BUILDER_DATA_SUFFIX,
     });
   }
 
