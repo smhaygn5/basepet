@@ -25,6 +25,16 @@ export const PET_CORE_ADDRESS: Record<number, `0x${string}`> = {
   [base.id]: "0x1bD23335C1DC6B5072954E56608e563cFC018673",
 };
 
+/**
+ * PetCore proxy'sinin deploy edildiği blok (zincir bazlı).
+ * Leaderboard, PetCreated event'lerini buradan itibaren tarar (public RPC
+ * eth_getLogs'u 10.000 blokla sınırladığı için başlangıç bloğu gerekir).
+ */
+export const PET_CORE_FROM_BLOCK: Record<number, bigint> = {
+  [foundry.id]: 0n,
+  [base.id]: 47601761n,
+};
+
 /** AccessoryShop (ERC-1155 UUPS proxy) adresleri. */
 export const ACCESSORY_SHOP_ADDRESS: Record<number, `0x${string}`> = {
   [foundry.id]: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
