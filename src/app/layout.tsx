@@ -19,16 +19,18 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const APP_URL = "https://basepet-one.vercel.app";
+
 const fcMiniApp = {
   version: "1",
-  imageUrl: "https://basepet.app/og.png",
+  imageUrl: `${APP_URL}/og.png`,
   button: {
     title: "Open BasePet",
     action: {
       type: "launch_frame",
       name: "BasePet",
-      url: "https://basepet.app",
-      splashImageUrl: "https://basepet.app/splash.png",
+      url: APP_URL,
+      splashImageUrl: `${APP_URL}/splash.png`,
       splashBackgroundColor: "#0a0e1a",
     },
   },
@@ -42,14 +44,23 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(APP_URL),
   title: "BasePet — On-chain 3D Pet on Base",
   description:
     "Feed, play, clean, and grow your 3D pet. Every care action becomes an on-chain memory on Base.",
+  icons: { icon: "/icon.png", apple: "/icon.png" },
   openGraph: {
     title: "BasePet — On-chain 3D Pet on Base",
     description:
       "Feed, play, clean, and grow your 3D pet. Every care action becomes an on-chain memory on Base.",
-    images: ["https://basepet.app/og.png"],
+    url: APP_URL,
+    images: ["/og.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BasePet — On-chain 3D Pet on Base",
+    description: "Feed, play, clean, and grow your 3D pet on Base.",
+    images: ["/og.png"],
   },
   other: {
     // Farcaster Mini App embed (Warpcast önizleme)
