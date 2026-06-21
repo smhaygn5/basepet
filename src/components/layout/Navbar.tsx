@@ -14,7 +14,7 @@ export function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-bold"
+          className="flex cursor-pointer select-none items-center gap-2 text-xl font-bold"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           <span>🐾</span>
