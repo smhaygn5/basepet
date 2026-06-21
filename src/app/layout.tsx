@@ -63,6 +63,8 @@ export const metadata: Metadata = {
     images: ["/og.png"],
   },
   other: {
+    // base.dev domain doğrulaması
+    "base:app_id": "6a37dc5474397a1da4f7aa81",
     // Farcaster Mini App embed (Warpcast önizleme)
     "fc:miniapp": JSON.stringify(fcMiniApp),
     "fc:frame": JSON.stringify(fcMiniApp), // geriye dönük uyumluluk
